@@ -26,3 +26,31 @@ export async function createBooking(bookingData, token) {
         return null;
     }
 }
+
+export async function getMyBookings(token) {
+    try {
+        const name = localStorage.getItem("name");
+
+        const response = await fetch(
+            `https://v2.api.noroff.dev/holidaze/profiles/${name}?_bookings=true`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "X-Noroff-API-Key": API_KEY,
+                },
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.log("API ERROR:", data);
+            throw new Error("Failed to fetch bookings");
+        }
+
+        return data.data.bookings || [];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
