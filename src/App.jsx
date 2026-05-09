@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Layout from "./components/Layout";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -15,20 +16,22 @@ import NotFoundPage from "./pages/NotFoundPage";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
-        <Route path="/profile" element={<ProfilePage/>}/>
-        <Route path="/venues/:id" element={<VenueDetailsPage/>}/>
-        <Route path="/venues/create" element={<CreateVenuePage/>}/>
-        <Route path="/venues/:id/edit" element={<EditVenuePage/>}/>
-        <Route path="/my-bookings" element={<MyBookingsPage/>}/>
-        <Route path="/my-venues" element={<MyVenuesPage/>}/>
-        <Route path="*" element={<NotFoundPage/>}/>
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/venues/:id" element={<VenueDetailsPage />} />
+          <Route path="/venues/create" element={<CreateVenuePage />} />
+          <Route path="/venues/:id/edit" element={<EditVenuePage />} />
+          <Route path="/my-bookings" element={<MyBookingsPage />} />
+          <Route path="/my-venues" element={<MyVenuesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;
