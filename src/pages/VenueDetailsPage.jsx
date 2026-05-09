@@ -30,6 +30,16 @@ function VenueDetailsPage() {
             <p>Location: {venue.location?.city}</p>
             <p>Price: ${venue.price} per night</p>
             <p>Max guests: {venue.maxGuests}</p>
+            <div style={{ marginTop: "30px", padding: "20px", border: "1px solid #ddd" }}>
+                <h2>Book this venue</h2>
+                <label>Check-in</label>
+                <input type="date" />
+                <label>Check-out</label>
+                <input type="date" />
+                <label>Guests</label>
+                <input type="number" min="1" max={venue.maxGuests} />
+                <button style={{ marginTop: "10px" }}>Book Now</button>
+            </div>
         </div>
     );
 }
