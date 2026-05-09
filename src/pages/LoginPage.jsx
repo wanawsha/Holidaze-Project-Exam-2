@@ -10,15 +10,14 @@ function LoginPage() {
         event.preventDefault();
 
         const result = await loginUser(email, password);
+        console.log("LOGIN RESULT:", JSON.stringify(result, null, 2));
 
         if (result) {
-        localStorage.setItem("token", result.accessToken);
-        localStorage.setItem("name", result.name);
-        localStorage.setItem("venueManager", result.venueManager);
-
-        alert("Login successful!");
-
-        window.location.href = "/";
+            localStorage.setItem("token", result.accessToken);
+            localStorage.setItem("name", result.name);
+            localStorage.setItem("venueManager", result?.profile?.venueManager);            
+            alert("Login successful!");
+            window.location.href = "/";
         } else {
         alert("Login failed");
         }
