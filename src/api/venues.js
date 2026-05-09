@@ -16,3 +16,22 @@ export async function getVenues() {
         return [];
     }
 }
+
+export async function getVenueById(id) {
+    try {
+        const response = await fetch(
+            `https://v2.api.noroff.dev/holidaze/venues/${id}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch venue");
+        }
+
+        const data = await response.json();
+
+        return data.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
