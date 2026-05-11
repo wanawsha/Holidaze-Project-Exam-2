@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { getMyVenues } from "../api/venues";
-import { deleteVenue } from "../api/venues";
+import { getMyVenues, deleteVenue } from "../api/venues";
 import { Link } from "react-router-dom";
+import Toast from "../components/Toast";
 
 function MyVenuesPage() {
-  const [venues, setVenues] = useState([]);
+    const [venues, setVenues] = useState([]);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-    async function fetchVenues() {
-      const data = await getMyVenues(token);
-      setVenues(data);
-    }
+        async function fetchVenues() {
+            const data = await getMyVenues(token);
+            setVenues(data);
+        }
 
-    fetchVenues();
-  }, []);
-
+        fetchVenues();
+    }, []);
 
     async function handleDelete(id) {
         const token = localStorage.getItem("token");
@@ -27,31 +28,37 @@ function MyVenuesPage() {
         const success = await deleteVenue(id, token);
 
         if (success) {
-          alert("Venue deleted!");
-          window.location.reload();
+            setToastMessage("Venue deleted!");
+            setShowToast(true);
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
         } else {
-          alert("Delete failed");
+            setToastMessage("Delete failed");
+            setShowToast(true);
         }
     }
 
+    return (
+        <div>
+            <h1>My Venues</h1>
+            {venues.length === 0 && <p>No venues yet</p>}
+            {venues.map((venue) => (
+                <div key={venue.id} style={{ marginBottom: "20px" }}>
+                    <h2>{venue.name}</h2>
+                    <p>${venue.price}</p>
 
-  return (
-    <div>
-      <h1>My Venues</h1>
-        {venues.map((venue) => (
-          <div key={venue.id} style={{ marginBottom: "20px" }}>
-            <h2>{venue.name}</h2>
-            <p>${venue.price}</p>
-            <Link to={`/venues/${venue.id}/edit`}>
-                <button>Edit</button>
-            </Link>
-            <button onClick={() => handleDelete(venue.id)}>
-                Delete
-            </button>
-          </div>
-      ))}
-    </div>
-  );
+                    <Link to={`/venues/${venue.id}/edit`}>
+                        <button>Edit</button>
+                    </Link>
+
+                    <button onClick={() => handleDelete(venue.id)}>Delete</button>
+                </div>
+            ))}
+            <Toast message={toastMessage} show={showToast} setShow={setShowToast} />
+        </div>
+    );
 }
 
 export default MyVenuesPage;

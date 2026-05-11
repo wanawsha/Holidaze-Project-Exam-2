@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getVenueById } from "../api/venues";
 import { createBooking } from "../api/booking";
+import Toast from "../components/Toast";
 
 function VenueDetailsPage() {
     const { id } = useParams();
@@ -9,6 +10,8 @@ function VenueDetailsPage() {
     const [dateFrom, setDateFrom] = useState("");
     const [dateTo, setDateTo] = useState("");
     const [guests, setGuests] = useState(1);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     useEffect(() => {
         async function fetchVenue() {
@@ -23,7 +26,8 @@ function VenueDetailsPage() {
         const token = localStorage.getItem("token");
 
         if (!token) {
-            alert("You must be logged in to book");
+            setToastMessage("You must be logged in to book");
+            setShowToast(true);
             return;
         }
 
@@ -37,9 +41,11 @@ function VenueDetailsPage() {
         const result = await createBooking(bookingData, token);
 
         if (result) {
-            alert("Booking successful!");
+            setToastMessage("Booking successful!");
+            setShowToast(true);
         } else {
-            alert("Booking failed");
+            setToastMessage("Booking failed");
+            setShowToast(true);
         }
     }
 
@@ -78,6 +84,7 @@ function VenueDetailsPage() {
                     Book Now
                 </button>
             </div>
+            <Toast message={toastMessage} show={showToast} setShow={setShowToast} />
         </div>
     );
 }

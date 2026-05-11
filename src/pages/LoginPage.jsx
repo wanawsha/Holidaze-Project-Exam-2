@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { loginUser, getProfile } from "../api/auth";
+import Toast from "../components/Toast";
 
 function LoginPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -17,11 +20,16 @@ function LoginPage() {
             localStorage.setItem("token", result.accessToken);
             localStorage.setItem("name", result.name);
             localStorage.setItem("venueManager", profile?.venueManager);
+            
+            setToastMessage("Login successful!");
+            setShowToast(true);
 
-            alert("Login successful!");
-            window.location.href = "/";
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1500);
         } else {
-            alert("Login failed");
+            setToastMessage("Login failed");
+            setShowToast(true);
         }
     }
 
@@ -43,6 +51,7 @@ function LoginPage() {
             />
             <button type="submit">Login</button>
         </form>
+        <Toast message={toastMessage} show={showToast} setShow={setShowToast}/>
         </div>
     );
 }

@@ -84,3 +84,41 @@ export async function getProfile(name, token) {
         return null;
     }
 }
+
+export async function updateProfile(name, avatarUrl, bannerUrl, token) {
+    try {
+        const response = await fetch(
+            `https://v2.api.noroff.dev/holidaze/profiles/${name}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    "X-Noroff-API-Key": "22c47311-4cac-486b-b6bc-b4d5942ffcd3",
+                },
+                body: JSON.stringify({
+                    avatar: {
+                        url: avatarUrl,
+                        alt: "User avatar",
+                    },
+                    banner: {
+                        url: bannerUrl,
+                        alt: "User banner",
+                    },
+                }),
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.log("API ERROR:", data);
+            throw new Error("Failed to update profile");
+        }
+
+        return data.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
