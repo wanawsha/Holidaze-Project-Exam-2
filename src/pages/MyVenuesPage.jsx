@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getMyVenues, deleteVenue } from "../api/venues";
 import { Link } from "react-router-dom";
 import Toast from "../components/Toast";
+import VenueImage from "../components/VenueImage";
 
 function MyVenuesPage() {
     const [venues, setVenues] = useState([]);
@@ -52,9 +53,7 @@ function MyVenuesPage() {
 
                     return (
                         <div key={venue.id} style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}>
-                            {imageUrl && (
-                                <img src={imageUrl} alt={venue.name} style={{ width: "100%", height: "220px", objectFit: "cover" }} />
-                            )}
+                            <VenueImage src={imageUrl} alt={venue.name} />
 
                             <div style={{ padding: "20px" }}>
                                 <h2 style={{ marginBottom: "8px" }}>{venue.name}</h2>
@@ -73,6 +72,7 @@ function MyVenuesPage() {
                     );
                 })}
             </div>
+
             <Toast message={toastMessage} show={showToast} setShow={setShowToast} />
         </div>
     );

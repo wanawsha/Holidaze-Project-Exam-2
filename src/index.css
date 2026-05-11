@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+:root {
+    --color-primary: #334E68;
+    --color-secondary: #BCCCDC;
+    --color-neutral-dark: #051630;
+    --color-neutral-light: #F2F4F6;
+    --color-neutral-gray: #D9E2EC;
+    --color-delete: #C46C6C;
+    --color-delete-light: #E8BABA;
+    --color-success: #61B85A;
+    --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -50,3 +62,95 @@ h1 {
 h2 {
     font-size: 24px;
 }
+
+.primary-button {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: var(--shadow-card);
+}
+
+.primary-button:hover {
+    background-color: var(--color-neutral-gray);
+}
+
+.outline-button {
+    background: transparent;
+    color: var(--color-primary);
+    border: 3px solid var(--color-primary);
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-button {
+    background: #E8BABA;
+    color: var(--color-delete);
+    border: 3px solid var(--color-delete);
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.success-button {
+    background: transparent;
+    color: var(--color-success);
+    border: 3px solid var(--color-success);
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.form-card {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    padding: 50px 70px;
+    box-shadow: var(--shadow-card);
+}
+
+.form-page {
+    min-height: 100vh;
+    background: var(--color-neutral-light);
+    padding: 60px 20px;
+}
+
+.form-title {
+    color: var(--color-primary);
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.form-line-input {
+    border: none;
+    border-bottom: 2px solid var(--color-secondary);
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-primary);
+    padding: 12px 20px;
+}
+
+.form-rounded-input {
+    border: 2px solid var(--color-secondary);
+    border-radius: 14px;
+    background: transparent;
+    color: var(--color-primary);
+    padding: 14px 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+

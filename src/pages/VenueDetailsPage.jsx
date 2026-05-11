@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getVenueById } from "../api/venues";
 import { createBooking } from "../api/booking";
 import Toast from "../components/Toast";
+import VenueImage from "../components/VenueImage";
 
 function VenueDetailsPage() {
     const { id } = useParams();
@@ -62,16 +63,11 @@ function VenueDetailsPage() {
     return (
         <div>
             <h1>{venue.name}</h1>
-
-            {imageUrl && (
-                <img src={imageUrl} alt={venue.media?.[0]?.alt || venue.name} style={{ width: "100%", maxHeight: "400px", objectFit: "cover" }} />
-            )}
-
+             <VenueImage src={imageUrl} alt={venue.name} height="400px"/>
             <p>{venue.description}</p>
             <p>Location: {venue.location?.city}</p>
             <p>Price: ${venue.price} per night</p>
             <p>Max guests: {venue.maxGuests}</p>
-
             <div style={{ marginTop: "30px", padding: "20px", border: "1px solid #ddd" }}>
                 <h2>Book this venue</h2>
 

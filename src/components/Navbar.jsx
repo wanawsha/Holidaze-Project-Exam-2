@@ -10,28 +10,29 @@ function Navbar() {
     }
 
     return (
-        <header style={{ padding: "16px", borderBottom: "1px solid #ddd" }}>
-        <nav style={{ display: "flex", gap: "16px" }}>
-            <Link to="/">Holidaze</Link>
-            {!token && (
-            <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-            </>
-            )}
-            {token && (
-                <>
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/my-bookings">My Bookings</Link>
-                    {isManager && (
-                    <Link to="/my-venues">My Venues</Link>
+        <header style={{ padding: "28px 60px", borderBottom: "1px solid var(--color-secondary)", background: "#fff" }}>
+            <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "30px" }}>
+                <Link to="/" style={{ fontSize: "32px", fontWeight: "700", color: "var(--color-primary)" }}>Holidaze</Link>
+
+
+                <div style={{ display: "flex", alignItems: "center", gap: "24px", marginLeft: "auto" }}>
+                    {!token && (
+                        <>
+                            <Link to="/register" style={{ color: "var(--color-primary)", fontWeight: "600" }}>Register</Link>
+                            <Link to="/login"><button className="primary-button">Login</button></Link>
+                        </>
                     )}
-                    <button onClick={handleLogout}>
-                    Logout
-                    </button>
-                </>
-            )}
-        </nav>
+
+                    {token && (
+                        <>
+                            <Link to="/profile" style={{ color: "var(--color-primary)", fontWeight: "600" }}>Profile</Link>
+                            <Link to="/my-bookings" style={{ color: "var(--color-primary)", fontWeight: "600" }}>My Bookings</Link>
+                            {isManager && <Link to="/my-venues" style={{ color: "var(--color-primary)", fontWeight: "600" }}>My Venues</Link>}
+                            <button className="primary-button" onClick={handleLogout}>Logout</button>
+                        </>
+                    )}
+                </div>
+            </nav>
         </header>
     );
 }
