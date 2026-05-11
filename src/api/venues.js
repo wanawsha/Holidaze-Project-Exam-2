@@ -67,3 +67,31 @@ export async function createVenue(venueData, token) {
         return null;
     }
 }
+
+export async function getMyVenues(token) { 
+    try {
+        const name = localStorage.getItem("name");
+
+        const response = await fetch(
+        `https://v2.api.noroff.dev/holidaze/profiles/${name}?_venues=true`,
+        {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": API_KEY,
+            },
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.log("API ERROR:", data);
+        throw new Error("Failed to fetch venues");
+    }
+
+        return data.data.venues || [];
+        } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
