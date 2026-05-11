@@ -19,6 +19,10 @@ function EditProfilePage() {
         if (result) {
             setToastMessage("Profile updated!");
             setShowToast(true);
+
+            setTimeout(() => {
+                window.location.href = "/profile";
+            }, 1500);
         } else {
             setToastMessage("Update failed");
             setShowToast(true);

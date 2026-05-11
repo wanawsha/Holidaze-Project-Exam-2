@@ -45,6 +45,10 @@ function EditVenuePage() {
         if (result) {
             setToastMessage("Venue updated!");
             setShowToast(true);
+
+            setTimeout(() => {
+                window.location.href = "/my-venues";
+            }, 1500);
         } else {
             setToastMessage("Update failed");
             setShowToast(true);

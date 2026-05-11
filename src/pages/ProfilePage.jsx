@@ -46,13 +46,9 @@ function ProfilePage() {
                     }}
                 />
             )}
-
             <h1>{profile.name}</h1>
             <p>{profile.email}</p>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                <Link to="/my-bookings">
-                    <button>My Bookings</button>
-                </Link>
                 <Link to="/profile/edit">
                     <button>Edit Profile</button>
                 </Link>
@@ -61,9 +57,11 @@ function ProfilePage() {
                         <Link to="/venues/create">
                             <button>Create Venue</button>
                         </Link>
-
                         <Link to="/my-venues">
                             <button>My Venues</button>
+                        </Link>
+                        <Link to="/my-bookings">
+                            <button>My Bookings</button>
                         </Link>
                     </>
                 )}

@@ -43,6 +43,10 @@ function VenueDetailsPage() {
         if (result) {
             setToastMessage("Booking successful!");
             setShowToast(true);
+
+            setTimeout(() => {
+                window.location.href = "/my-bookings";
+            }, 1500);
         } else {
             setToastMessage("Booking failed");
             setShowToast(true);

@@ -41,21 +41,38 @@ function MyVenuesPage() {
     }
 
     return (
-        <div>
-            <h1>My Venues</h1>
-            {venues.length === 0 && <p>No venues yet</p>}
-            {venues.map((venue) => (
-                <div key={venue.id} style={{ marginBottom: "20px" }}>
-                    <h2>{venue.name}</h2>
-                    <p>${venue.price}</p>
+        <div style={{ padding: "40px" }}>
+            <h1 style={{ marginBottom: "30px" }}>My Venues</h1>
 
-                    <Link to={`/venues/${venue.id}/edit`}>
-                        <button>Edit</button>
-                    </Link>
+            {venues.length === 0 && <p>No venues yet.</p>}
 
-                    <button onClick={() => handleDelete(venue.id)}>Delete</button>
-                </div>
-            ))}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+                {venues.map((venue) => {
+                    const imageUrl = venue.media?.[0]?.url;
+
+                    return (
+                        <div key={venue.id} style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}>
+                            {imageUrl && (
+                                <img src={imageUrl} alt={venue.name} style={{ width: "100%", height: "220px", objectFit: "cover" }} />
+                            )}
+
+                            <div style={{ padding: "20px" }}>
+                                <h2 style={{ marginBottom: "8px" }}>{venue.name}</h2>
+                                <p style={{ color: "#666", marginBottom: "8px" }}>{venue.location?.city || "Unknown location"}</p>
+                                <p style={{ fontWeight: "600", marginBottom: "16px" }}>${venue.price} / night</p>
+
+                                <div style={{ display: "flex", gap: "10px" }}>
+                                    <Link to={`/venues/${venue.id}/edit`}>
+                                        <button>Edit</button>
+                                    </Link>
+
+                                    <button onClick={() => handleDelete(venue.id)}>Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
             <Toast message={toastMessage} show={showToast} setShow={setShowToast} />
         </div>
     );

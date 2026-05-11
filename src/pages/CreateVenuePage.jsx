@@ -32,6 +32,10 @@ function CreateVenuePage() {
         if (result) {
             setToastMessage("Venue created!");
             setShowToast(true);
+
+            setTimeout(() => {
+                window.location.href = "/my-venues";
+            }, 1500);
         } else {
             setToastMessage("Failed to create venue");
             setShowToast(true);
