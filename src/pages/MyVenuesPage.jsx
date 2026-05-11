@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMyVenues } from "../api/venues";
 import { deleteVenue } from "../api/venues";
+import { Link } from "react-router-dom";
 
 function MyVenuesPage() {
   const [venues, setVenues] = useState([]);
@@ -37,14 +38,17 @@ function MyVenuesPage() {
   return (
     <div>
       <h1>My Venues</h1>
-      {venues.map((venue) => (
-        <div key={venue.id} style={{ marginBottom: "20px" }}>
-          <h2>{venue.name}</h2>
-          <p>${venue.price}</p>
-          <button onClick={() => handleDelete(venue.id)}>
-            Delete
-          </button>
-        </div>
+        {venues.map((venue) => (
+          <div key={venue.id} style={{ marginBottom: "20px" }}>
+            <h2>{venue.name}</h2>
+            <p>${venue.price}</p>
+            <Link to={`/venues/${venue.id}/edit`}>
+                <button>Edit</button>
+            </Link>
+            <button onClick={() => handleDelete(venue.id)}>
+                Delete
+            </button>
+          </div>
       ))}
     </div>
   );

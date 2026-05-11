@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { createVenue } from "../api/venues";
+import Toast from "../components/Toast";
 
 function CreateVenuePage() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [maxGuests, setMaxGuests] = useState(1);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     async function handleCreateVenue(event) {
         event.preventDefault();
@@ -27,9 +30,11 @@ function CreateVenuePage() {
         const result = await createVenue(venueData, token);
 
         if (result) {
-            alert("Venue created!");
+            setToastMessage("Venue created!");
+            setShowToast(true);
         } else {
-            alert("Failed to create venue");
+            setToastMessage("Failed to create venue");
+            setShowToast(true);
         }
     }
 
@@ -63,6 +68,7 @@ function CreateVenuePage() {
                 />
                 <button type="submit">Create Venue</button>
             </form>
+            <Toast message={toastMessage} show={showToast} setShow={setShowToast} />
         </div>
     );
 }
