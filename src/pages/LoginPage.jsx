@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginUser } from "../api/auth";
+import { loginUser, getProfile } from "../api/auth";
 
 function LoginPage() {
 
@@ -10,16 +10,18 @@ function LoginPage() {
         event.preventDefault();
 
         const result = await loginUser(email, password);
-        console.log("LOGIN RESULT:", JSON.stringify(result, null, 2));
 
         if (result) {
+            const profile = await getProfile(result.name, result.accessToken);
+
             localStorage.setItem("token", result.accessToken);
             localStorage.setItem("name", result.name);
-            localStorage.setItem("venueManager", result?.profile?.venueManager);            
+            localStorage.setItem("venueManager", profile?.venueManager);
+
             alert("Login successful!");
             window.location.href = "/";
         } else {
-        alert("Login failed");
+            alert("Login failed");
         }
     }
 

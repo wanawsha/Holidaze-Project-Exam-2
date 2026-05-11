@@ -95,3 +95,59 @@ export async function getMyVenues(token) {
         return [];
     }
 }
+
+export async function updateVenue(id, venueData, token) {
+  try {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/holidaze/venues/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+        body: JSON.stringify(venueData),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("API ERROR:", data);
+      throw new Error("Failed to update venue");
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+
+export async function deleteVenue(id, token) {
+    try {
+        const response = await fetch(
+        `https://v2.api.noroff.dev/holidaze/venues/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": API_KEY,
+            },
+        }
+        );
+
+        if (!response.ok) {
+            const data = await response.json();
+            console.log("API ERROR:", data);
+            throw new Error("Failed to delete venue");
+        }
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
